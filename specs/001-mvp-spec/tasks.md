@@ -15,10 +15,10 @@ description: 'Task list for Summanow MVP implementation'
 
 **Purpose**: Align tooling, dependencies, and environment scaffolding.
 
-- [ ] T001 Update `package.json` to include a `volta` block pinning Node.js 24.x and pnpm 9.x for consistent tooling.
-- [ ] T002 Add runtime dependencies (OpenAI SDK, `@aws-sdk` clients, Cheerio, Zod, date helpers) to `package.json` and regenerate `pnpm-lock.yaml`.
-- [ ] T003 Add dev/test dependencies (Vitest, Testing Library, MSW, Playwright, tsx) and extend `package.json` scripts for `typecheck`, `test`, `test:e2e`.
-- [ ] T004 Create `.env.example` capturing required variables from quickstart (OpenAI, AWS, app URLs) to guide local setup.
+- [X] T001 Update `package.json` to include a `volta` block pinning Node.js 24.x and pnpm 9.x for consistent tooling.
+- [X] T002 Add runtime dependencies (OpenAI SDK, `@aws-sdk` clients, Cheerio, Zod, date helpers) to `package.json` and regenerate `pnpm-lock.yaml`.
+- [X] T003 Add dev/test dependencies (Vitest, Testing Library, MSW, Playwright, tsx) and extend `package.json` scripts for `typecheck`, `test`, `test:e2e`.
+- [X] T004 Create `.env.example` capturing required variables from quickstart (OpenAI, AWS, app URLs) to guide local setup.
 
 ---
 
@@ -26,7 +26,7 @@ description: 'Task list for Summanow MVP implementation'
 
 **Purpose**: Core shared pieces required by all user stories.
 
-- [ ] T005 [P] Define domain models and Zod schemas for Site/Article/Summary/CrawlRun/RetryQueue in `src/types/domain.ts`.
+- [X] T005 [P] Define domain models and Zod schemas for Site/Article/Summary/CrawlRun/RetryQueue in `src/types/domain.ts`.
 - [ ] T006 [P] Implement environment validation helper in `src/lib/config/env.ts` using Zod and typed accessors.
 - [ ] T007 [P] Create AWS client factory in `src/lib/datastore/clients.ts` configuring DynamoDBDocumentClient, S3Client, and EventBridgeClient with retries and user-agent metadata.
 - [ ] T008 [P] Configure Vitest in `vitest.config.ts` with `tests/setup/vitest.ts` bootstrap (aliasing `src/`, polyfills, MSW hooks).
