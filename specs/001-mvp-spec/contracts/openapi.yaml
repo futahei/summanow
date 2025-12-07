@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Summanow MVP API
+  version: 0.1.0
+  description: |
+    REST interface for the Summanow MVP. Provides read access to summarized articles
+    and limited operational endpoints for triggering crawls and viewing crawl runs.
+servers:
+  - url: https://summanow.example.com
+    description: Production (placeholder)
+  - url: http://localhost:3000
+    description: Local development via Next.js dev server
+paths:
+  /api/articles:
+    get:
+      summary: List recent summarized articles
+      operationId: listArticles
+      parameters:
+        - name: since
+          in: query
+          description: ISO 8601 timestamp (inclusive) lower bound for publication time.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: until
+          in: query
+          description: ISO 8601 timestamp (exclusive) upper bound for publication time.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: siteId
+          in: query
+          description: Filter by site identifier.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Maximum number of records to return (default 20, max 50).
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+      responses:
+        '200':
+          description: List of articles with summaries ordered by publication time (desc).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleListResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/articles/{articleId}:
+    get:
+      summary: Fetch article details and summary by ID
+      operationId: getArticleById
+      parameters:
+        - name: articleId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Article detail including summary, metadata, and source links.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleDetailResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/crawl-runs:
+    get:
+      summary: List recent crawl executions (operations view)
+      operationId: listCrawlRuns
+      parameters:
+        - name: siteId
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+      responses:
+        '200':
+          description: Paginated list of crawl run metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrawlRunListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+        - bearerAuth: []
+  /api/admin/jobs/crawl:
+    post:
+      summary: Trigger crawl & summarize pipeline manually
+      operationId: triggerCrawlJob
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerCrawlRequest'
+      responses:
+        '202':
+          description: Crawl job accepted for processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerCrawlResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          description: Manual trigger throttled (recent run already exists).
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: Invalid request parameters.
+    Unauthorized:
+      description: Authentication required or invalid token.
+    NotFound:
+      description: Requested resource not found.
+    InternalError:
+      description: Unexpected failure while processing the request.
+  schemas:
+    Site:
+      type: object
+      required: [siteId, name, category, baseUrl]
+      properties:
+        siteId:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+          enum: [press_release, news]
+        baseUrl:
+          type: string
+          format: uri
+    ArticleSummary:
+      type: object
+      required: [articleId, site, title, url, publishedAt, summary]
+      properties:
+        articleId:
+          type: string
+        site:
+          $ref: '#/components/schemas/Site'
+        title:
+          type: string
+        url:
+          type: string
+          format: uri
+        publishedAt:
+          type: string
+          format: date-time
+        fetchedAt:
+          type: string
+          format: date-time
+        summary:
+          type: object
+          required: [text, generatedAt, provider, modelId]
+          properties:
+            text:
+              type: string
+            generatedAt:
+              type: string
+              format: date-time
+            provider:
+              type: string
+              enum: [openai, azure_openai]
+            modelId:
+              type: string
+            disclaimer:
+              type: string
+        status:
+          type: string
+          enum: [summarized, pending_summary, summary_failed]
+    ArticleDetail:
+      allOf:
+        - $ref: '#/components/schemas/ArticleSummary'
+        - type: object
+          required: [bodyPlain, wordCount]
+          properties:
+            bodyPlain:
+              type: string
+            wordCount:
+              type: integer
+            lastSummaryAttemptAt:
+              type: string
+              format: date-time
+            retry:
+              type: object
+              nullable: true
+              properties:
+                pending:
+                  type: boolean
+                nextRetryAt:
+                  type: string
+                  format: date-time
+    CrawlRun:
+      type: object
+      required: [runId, siteId, triggerType, startedAt, status, processedCount]
+      properties:
+        runId:
+          type: string
+        siteId:
+          type: string
+        triggerType:
+          type: string
+          enum: [schedule, manual]
+        startedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [success, partial, failed]
+        processedCount:
+          type: integer
+        newArticles:
+          type: integer
+        failedArticles:
+          type: integer
+        errorSummary:
+          type: string
+          nullable: true
+    ArticleListResponse:
+      type: object
+      required: [articles]
+      properties:
+        articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleSummary'
+        nextCursor:
+          type: string
+          nullable: true
+    ArticleDetailResponse:
+      type: object
+      required: [article]
+      properties:
+        article:
+          $ref: '#/components/schemas/ArticleDetail'
+    CrawlRunListResponse:
+      type: object
+      required: [runs]
+      properties:
+        runs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CrawlRun'
+        nextCursor:
+          type: string
+          nullable: true
+    TriggerCrawlRequest:
+      type: object
+      properties:
+        siteIds:
+          type: array
+          items:
+            type: string
+          description: Optional subset of sites to crawl. Defaults to all configured sites.
+        force:
+          type: boolean
+          description: Ignore recent-run guardrail (for emergency reruns).
+      additionalProperties: false
+    TriggerCrawlResponse:
+      type: object
+      required: [runId, status]
+      properties:
+        runId:
+          type: string
+        status:
+          type: string
+          enum: [accepted]
+        message:
+          type: string
