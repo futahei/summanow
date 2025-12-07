@@ -61,6 +61,14 @@ Follow-up TODOs: None
 - EN: Deployment plans MUST include rollbacks, monitoring hooks, and AWS cost checks when new workloads are introduced.
 - JA: 新しいワークロードを導入する際のデプロイ計画にはロールバック手順、監視設定、AWS コスト確認を必ず含める。
 
+## Language Policy / 言語ポリシー
+
+- EN: All artifacts generated via `/speckit` commands—including specifications, plans, task lists, checklists, implementation proposals, and documentation updates—MUST be written in Japanese by default. Chat-based discussions MAY use Japanese as well. English output is allowed only when explicitly requested in a specific command prompt.
+
+- JA: `/speckit` コマンドで生成されるすべての成果物（仕様・計画・タスク分解・チェックリスト・実装案・ドキュメント更新）は原則として日本語で記述すること。チャットでの議論も日本語でよい。英語出力が必要な場合は個別コマンドで明示する。
+
+- Rationale / 理由: レビュー性とチーム共有を最適化するため、日本語を標準言語として採用する。仕様や計画のニュアンスを正確に伝えるためにも日本語が望ましい。
+
 ## Governance
 
 - EN: This constitution overrides conflicting practices; amendments require consensus from the core maintainers and an updated Sync Impact Report.
@@ -70,4 +78,4 @@ Follow-up TODOs: None
 - EN: Conduct quarterly compliance reviews to audit crawling logs, CI status, and documentation freshness; findings feed into specs and backlog tasks.
 - JA: 四半期ごとにクロールログ・CI 状況・ドキュメントの鮮度を監査し、その結果を仕様やバックログに反映させる。
 
-**Version**: 1.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07
+**Version**: 1.1.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07
