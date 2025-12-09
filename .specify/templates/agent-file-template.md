@@ -1,32 +1,28 @@
-# [PROJECT NAME] 開発ガイドライン
+# [PROJECT NAME] Development Guidelines
 
-このファイルは、各機能の実装計画（plan.md）から自動生成されたプロジェクト横断ガイドラインです。  
-最終更新日: [DATE]
+Auto-generated from all feature plans. Last updated: [DATE]
 
-## 利用中の技術スタック（Active Technologies）
+## Active Technologies
 
-[すべての plan.md から抽出された技術一覧が自動で入る]
+[EXTRACTED FROM ALL PLAN.MD FILES]
 
-## プロジェクト構造（Project Structure）
+## Project Structure
 
 ```text
-[plan.md に記載された実際のディレクトリ構造が自動生成される]
+[ACTUAL STRUCTURE FROM PLANS]
 ```
 
-## 利用可能なコマンド（Commands）
+## Commands
 
-[プロジェクトで現在利用している技術に基づく有効なコマンドのみが表示される]
+[ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]
 
-## コードスタイル（Code Style）
+## Code Style
 
-[使用言語に応じたスタイルルールが自動で挿入される／例: TypeScript, Python など]
+[LANGUAGE-SPECIFIC, ONLY FOR LANGUAGES IN USE]
 
-## 最近の変更点（Recent Changes）
+## Recent Changes
 
-[最新 3 機能の追加内容が自動抽出され、ここに記録される]
-
-<!-- 手動で追記したいガイドラインがあれば、このブロック内に記述してください -->
+[LAST 3 FEATURES AND WHAT THEY ADDED]
 
 <!-- MANUAL ADDITIONS START -->
-
 <!-- MANUAL ADDITIONS END -->

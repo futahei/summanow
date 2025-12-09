@@ -1,115 +1,115 @@
-# 機能仕様書: [機能名]
+# Feature Specification: [FEATURE NAME]
 
 **Feature Branch**: `[###-feature-name]`  
-**作成日**: [DATE]  
-**ステータス**: Draft  
-**入力（ユーザー記述）**: "$ARGUMENTS"
+**Created**: [DATE]  
+**Status**: Draft  
+**Input**: User description: "$ARGUMENTS"
 
-## ユーザーストーリー & テスト観点（必須）
-
-<!--
-  - ユーザーストーリーは重要度順（P1, P2, P3…）。
-  - それぞれが単独で価値を提供し、独立してテスト可能であること。
-  - 優先度理由・独立テスト方法・受け入れ条件を必ず記述する。
--->
-
-### ユーザーストーリー 1 - [短いタイトル] (優先度: P1)
-
-[このユーザージャーニーを簡潔に説明]
-
-**優先度の理由**  
-[なぜ P1 なのか]
-
-**独立テスト方法**  
-[このストーリー単体で価値を検証できる方法]
-
-**受け入れ条件（Acceptance Scenarios）**:
-
-- **前提**: [initial state]  
-  **操作**: [action]  
-  **結果**: [expected outcome]
-
-- **前提**: [initial state]  
-  **操作**: [action]  
-  **結果**: [expected outcome]
-
-### ユーザーストーリー 2 - [短いタイトル] (優先度: P2)
-
-[説明文]
-
-**優先度の理由**  
-[理由]
-
-**独立テスト方法**  
-[説明]
-
-**受け入れ条件**:
-
-- **前提**:  
-  **操作**:  
-  **結果**:
-
-### ユーザーストーリー 3 - [短いタイトル] (優先度: P3)
-
-[説明文]
-
-**優先度の理由**  
-[理由]
-
-**独立テスト方法**  
-[説明]
-
-**受け入れ条件**:
-
-- **前提**:  
-  **操作**:  
-  **結果**:
-
-[必要に応じて追加]
-
-## エッジケース（必須）
-
-- [境界条件] のとき、システムはどう振る舞うべきか？
-- [異常系] の場合、どのように表示・ログすべきか？
-- [外部サービス不調] のとき、どうフォールバック / リトライするか？
-
-## 機能要件（必須）
-
-### 機能要件（Functional Requirements）
+## User Scenarios & Testing *(mandatory)*
 
 <!--
-  - WHAT に集中し、技術依存の HOW は書かない。
-  - 曖昧な要件は NEEDS CLARIFICATION を付記する。
+  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+  
+  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+  Think of each story as a standalone slice of functionality that can be:
+  - Developed independently
+  - Tested independently
+  - Deployed independently
+  - Demonstrated to users independently
 -->
 
-- **FR-001**: システムはユーザーが [◯◯] できるようにする。
-- **FR-002**: システムは [✕✕] を必ず検証する。
-- **FR-003**: ユーザーは [△△] を実行できる。
-- **FR-004**: システムは [データ保存要件] を満たす。
-- **FR-005**: システムは [ログ / 監査要件] を満たす。
+### User Story 1 - [Brief Title] (Priority: P1)
 
-**曖昧さの明示例**:
+[Describe this user journey in plain language]
 
-- **FR-006**: システムは認証を行う（**NEEDS CLARIFICATION: 方式が未定 – パスワード / SSO / OAuth?**）
-- **FR-007**: システムはデータを保存する（**NEEDS CLARIFICATION: 保持期間が未定**）
+**Why this priority**: [Explain the value and why it has this priority level]
 
-### 主要エンティティ（必要な場合）
+**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
 
-- **[エンティティ名 1]**
-  - 何を表すか
-  - 主な属性（意味レベル）
-  - 関連するエンティティ
+**Acceptance Scenarios**:
 
-- **[エンティティ名 2]**
-  - 説明
-  - 属性
-  - 関連
+1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+2. **Given** [initial state], **When** [action], **Then** [expected outcome]
 
-## 成功指標 / Success Criteria（必須）
+---
 
-### 計測可能な成果
+### User Story 2 - [Brief Title] (Priority: P2)
 
-- **SC-001**: ユーザーが [主要操作] を [◯秒 / ◯ステップ] 以内に完了する。
-- **SC-002**: システムは [負荷条件] 下で [X 件/秒] を処理できる。
-- **SC-003**: ユーザーの [成功率 / 満足度] が [◯%] 以上。
-- **SC-004**: [ビジネス指標] が [◯%] 改善される。
+[Describe this user journey in plain language]
+
+**Why this priority**: [Explain the value and why it has this priority level]
+
+**Independent Test**: [Describe how this can be tested independently]
+
+**Acceptance Scenarios**:
+
+1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+
+---
+
+### User Story 3 - [Brief Title] (Priority: P3)
+
+[Describe this user journey in plain language]
+
+**Why this priority**: [Explain the value and why it has this priority level]
+
+**Independent Test**: [Describe how this can be tested independently]
+
+**Acceptance Scenarios**:
+
+1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+
+---
+
+[Add more user stories as needed, each with an assigned priority]
+
+### Edge Cases
+
+<!--
+  ACTION REQUIRED: The content in this section represents placeholders.
+  Fill them out with the right edge cases.
+-->
+
+- What happens when [boundary condition]?
+- How does system handle [error scenario]?
+
+## Requirements *(mandatory)*
+
+<!--
+  ACTION REQUIRED: The content in this section represents placeholders.
+  Fill them out with the right functional requirements.
+-->
+
+### Functional Requirements
+
+- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+
+*Example of marking unclear requirements:*
+
+- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+
+### Key Entities *(include if feature involves data)*
+
+- **[Entity 1]**: [What it represents, key attributes without implementation]
+- **[Entity 2]**: [What it represents, relationships to other entities]
+
+## Success Criteria *(mandatory)*
+
+<!--
+  ACTION REQUIRED: Define measurable success criteria.
+  These must be technology-agnostic and measurable.
+-->
+
+### Measurable Outcomes
+
+- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
